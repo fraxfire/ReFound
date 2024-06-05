@@ -1,0 +1,113 @@
+@model IEnumerable<ReFound.Models.Object>
+@using Microsoft.AspNetCore.Identity
+@inject Microsoft.AspNetCore.Identity.UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Article";
+    var userId = UserManager.GetUserId(User);
+}
+
+<h1 class="my-4 text-center">Article</h1>
+
+<div class="row">
+    @foreach (var obj in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                @* Aggiungi un'immagine se disponibile *@
+                <div class="card-body">
+                        <h5 class="card-title">@obj.Name</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@obj.Price.ToString("C")</h6>
+                        <p class="card-text">@obj.Description</p>
+                        <p class="card-text"><small class="text-muted">Quantity: @obj.Quantity</small></p>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex flex-column">
+                        <form asp-action="Cart" method="post" class="mb-2">
+                            <input type="hidden" name="ObjectId" value="@obj.ObjectId" />
+                            <button type="submit" class="btn btn-outline-primary btn-lg">
+                                <i class="fas fa-cart-plus"></i> Aggiungi al carrello
+                            </button>
+                        </form>
+                        @if (obj.UserId == userId)
+                        {
+                            <form asp-action="RemoveObject" method="post">
+                                <input type="hidden" name="ObjectId" value="@obj.ObjectId" />
+                                <button type="submit" class="btn btn-outline-danger btn-lg">
+                                    <i class="fas fa-trash-alt"></i> Rimuovi l'oggetto
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+}
+
+<style>
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        border: none;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-title, .card-subtitle, .card-text {
+        text-align: center;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .card-footer {
+        background-color: transparent;
+        border-top: none;
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+        color: #fff;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #0056b3;
+        color: #fff;
+        border-color: #0056b3;
+    }
+
+    .btn-outline-danger:hover {
+        background-color: #dc3545;
+        color: #fff;
+        border-color: #dc3545;
+    }
+
+    .d-flex {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>

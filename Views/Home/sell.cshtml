@@ -1,0 +1,84 @@
+@{
+    ViewData["Title"] = "Sell";
+}
+
+<h1 class="my-4 text-center">Sell an Article</h1>
+
+<form asp-action="Sell" method="post" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-light">
+    <div class="form-group mb-3">
+        <label for="Name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="Name" name="Name" placeholder="Enter the object's name" required>
+    </div>
+    <div class="form-group mb-3">
+        <label for="Price" class="form-label">Price</label>
+        <input type="number" step="0.01" min="0.01" class="form-control" id="Price" name="Price" placeholder="Enter the price" required>
+    </div>
+    <div class="form-group mb-3">
+        <label for="Quantity" class="form-label">Quantity</label>
+        <input type="number" min="1" class="form-control" id="Quantity" name="Quantity" placeholder="Enter the quantity" required>
+    </div>
+    <div class="form-group mb-3">
+        <label for="Description" class="form-label">Description</label>
+        <textarea class="form-control" id="Description" name="Description" rows="4" placeholder="Enter a description" required></textarea>
+    </div>
+    <div class="form-group mb-3">
+        <label for="Images" class="form-label">Images</label>
+        <input type="file" class="form-control" id="Images" name="Images" multiple>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg w-100">
+        <i class="fas fa-dollar-sign"></i> Sell
+    </button>
+</form>
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        document.getElementById('Price').addEventListener('input', function (e) {
+            var value = e.target.value;
+            if (!isNaN(value) && value) {
+                var floatValue = parseFloat(value).toFixed(2);
+                if (!isNaN(floatValue)) {
+                    e.target.value = floatValue;
+                }
+            }
+        });
+    </script>
+}
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    form {
+        max-width: 600px;
+        margin: auto;
+    }
+
+    .form-group {
+        position: relative;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .btn {
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+        color: #fff;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+</style>

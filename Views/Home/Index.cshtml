@@ -1,0 +1,134 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding-top: 50px;
+        }
+
+        .jumbotron {
+            background-image: url('/images/hero-bg.jpg');
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            margin-bottom: 0;
+        }
+
+        .jumbotron h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #ff4400; /* Arancione brillante */
+        }
+
+        .jumbotron p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #000000; /* Giallo brillante */
+        }
+
+        .adv-container {
+            position: relative;
+            max-width: 800px;
+            margin: 50px auto;
+        }
+
+        .adv-container img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
+        }
+
+        .adv-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            background-color: #ff6600; /* Arancione brillante */
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .info-section {
+            padding: 50px 20px;
+            background-color: #ffffff;
+            text-align: center;
+        }
+
+        .info-section h2 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #ff6600; /* Arancione brillante */
+        }
+
+        .info-section p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #000; /* Nero */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-4">Welcome!</h1>
+            <p class="lead">Explore the world of unique objects at amazing prices.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="adv-container">
+            <img src="/images/adv1.jpg" alt="Adv1">
+            <div class="adv-caption">20% off of every item!</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="adv-container">
+            <img src="/images/adv2.jpg" alt="Adv2">
+            <div class="adv-caption">New Items every week!</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="info-section">
+            <h2>Discover Our Offers</h2>
+            <p>From vintage clothing to antique forniture, passing through unique accessories, ReFound offers a vast array of articles that will help you create a style of your own.</p>
+        </div>
+    </div>
+
+    <script>
+        var immagini = ['images/adv1.jpg', 'images/adv2.jpg'];
+        var index = 0;
+        var intervallo = 5000; //intervallo in millisecondi
+
+        function cambiaImmagine() {
+            var immagine = document.getElementById('immagine');
+            immagine.style.transform = 'translateX(-100%)'; // Sposta l'immagine verso sinistra
+
+            setTimeout(function() {
+                index = (index + 1) % immagini.length;
+                immagine.src = immagini[index];
+                immagine.style.transform = 'translateX(0)'; // Riporta l'immagine al suo posto originale
+            }, 1000);
+        }
+        setInterval(cambiaImmagine, intervallo);
+    </script>
+
+</body>
+</html>

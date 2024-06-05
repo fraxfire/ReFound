@@ -1,0 +1,52 @@
+@model List<CartViewModel>
+
+<h1 class="my-4">Shopping Cart</h1>
+
+@if (Model == null || Model.Count == 0)
+{
+    <div class="alert alert-info" role="alert">
+        Il carrello è vuoto.
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th> <!-- Added Quantity Column -->
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cart in Model)
+                {
+                    <tr>
+                        <td>@(cart.Name ?? "N/A")</td>
+                        <td>@(cart.Price != null ? "$" + cart.Price.ToString("F2") : "N/A")</td>
+                        <td>@(cart.Quantity)</td> <!-- Display Quantity -->
+                        <td>
+                            <form asp-action="RemoveFromCart" asp-route-productId="@cart.ObjectId">
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash-alt"></i> Remove
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+<a href="/Home/Object" class="btn btn-primary btn-lg btn-block">
+    <i class="fas fa-shopping-cart"></i> Continue Shopping
+</a>
+
+<hr />
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+}
